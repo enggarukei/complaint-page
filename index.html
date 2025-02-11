@@ -98,12 +98,13 @@
 
                     pdf.addImage(imgData, "JPEG", 10, 80, 150, 100);
 
-                    // Simpan PDF sebagai file
-                    const pdfBlob = pdf.output("blob");
+                    // 🔹 Simpan PDF sebagai file
+                    const pdfBlob = new Blob([pdf.output("blob")], { type: "application/pdf" });
+                    const pdfFile = new File([pdfBlob], "keluhan.pdf", { type: "application/pdf" });
 
                     // 🔹 Upload PDF ke Cloudinary
                     const pdfFormData = new FormData();
-                    pdfFormData.append("file", pdfBlob, "keluhan.pdf");
+                    pdfFormData.append("file", pdfFile);
                     pdfFormData.append("upload_preset", "complaint_upload");
 
                     document.getElementById("status").innerText = "Mengunggah PDF...";
