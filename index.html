@@ -3,53 +3,39 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pengajuan Keluhan</title>
+  <title>Form Upload File</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       background-color: #f4f7fa;
-      margin: 0;
-      padding: 0;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      flex-direction: column;
+      margin: 0;
     }
     .container {
       background: #fff;
       padding: 20px;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      max-width: 500px;
       width: 100%;
+      max-width: 500px;
     }
     h1 {
       text-align: center;
-      font-size: 24px;
-      color: #333;
-      margin-bottom: 20px;
     }
     .form-group {
       margin-bottom: 15px;
     }
-    label {
-      font-size: 14px;
-      color: #333;
-    }
-    input, textarea, select {
+    input, textarea {
       width: 100%;
       padding: 10px;
       margin-top: 5px;
-      border: 1px solid #ccc;
       border-radius: 4px;
       font-size: 14px;
     }
-    textarea {
-      resize: vertical;
-      height: 100px;
-    }
-    .btn-submit {
+    button {
       background-color: #4CAF50;
       color: white;
       padding: 12px 20px;
@@ -57,9 +43,8 @@
       border-radius: 4px;
       cursor: pointer;
       width: 100%;
-      font-size: 16px;
     }
-    .btn-submit:hover {
+    button:hover {
       background-color: #45a049;
     }
   </style>
@@ -67,39 +52,15 @@
 <body>
 
   <div class="container">
-    <h1>Form Pengajuan Keluhan</h1>
-    <form action="YOUR_BACKEND_URL" method="POST" enctype="multipart/form-data">
+    <h1>Upload File</h1>
+    <form id="upload-form" action="/api/upload" method="POST" enctype="multipart/form-data">
       
       <div class="form-group">
-        <label for="nama">Nama</label>
-        <input type="text" id="nama" name="nama" required placeholder="Nama Anda">
+        <label for="file">Pilih File</label>
+        <input type="file" id="file" name="file" required />
       </div>
       
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required placeholder="Email Anda">
-      </div>
-      
-      <div class="form-group">
-        <label for="kategori">Kategori Keluhan</label>
-        <select id="kategori" name="kategori" required>
-          <option value="Jaringan">Jaringan</option>
-          <option value="Hardware">Hardware</option>
-          <option value="Software">Software</option>
-        </select>
-      </div>
-      
-      <div class="form-group">
-        <label for="pesan">Pesan Keluhan</label>
-        <textarea id="pesan" name="pesan" required placeholder="Deskripsikan keluhan Anda"></textarea>
-      </div>
-      
-      <div class="form-group">
-        <label for="foto">Upload Foto (opsional)</label>
-        <input type="file" id="foto" name="foto" accept="image/*">
-      </div>
-      
-      <button type="submit" class="btn-submit">Kirim Pengajuan</button>
+      <button type="submit">Kirim</button>
     </form>
   </div>
 
