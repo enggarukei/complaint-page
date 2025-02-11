@@ -68,7 +68,7 @@
 
   <div class="container">
     <h1>Form Pengajuan Keluhan</h1>
-    <form action="YOUR_BACKEND_URL" method="POST" enctype="multipart/form-data">
+    <form action="CLOUDINARY_URL=cloudinary://426317352995826:KUFwVPyK6BYirh0_DtFa1sX7vhk@dn8aufq3b" method="POST" enctype="multipart/form-data">
       
       <div class="form-group">
         <label for="nama">Nama</label>
@@ -102,6 +102,29 @@
       <button type="submit" class="btn-submit">Kirim Pengajuan</button>
     </form>
   </div>
-
+  <script>
+    // Inisialisasi Cloudinary Upload Widget
+    document.getElementById('upload-widget').onclick = function() {
+      cloudinary.openUploadWidget(
+        {
+          cloudName: 'dn8aufq3b', 
+          uploadPreset: 'Upload-Files', // Sesuaikan dengan upload preset yang telah Anda buat di Cloudinary
+          sources: ['local', 'url', 'camera'], // Pilihan sumber upload
+          showAdvancedOptions: true,
+          cropping: true,
+          multiple: false,
+          maxFileSize: 5000000 // Maksimal ukuran file 5MB
+        },
+        function(error, result) {
+          if (error) {
+            console.log(error);
+            return;
+          }
+          // Simpan URL gambar ke input hidden
+          document.getElementById('foto-url').value = result[0].secure_url;
+        }
+      );
+    };
+  </script>
 </body>
 </html>
