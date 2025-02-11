@@ -102,29 +102,47 @@
       <button type="submit" class="btn-submit">Kirim Pengajuan</button>
     </form>
   </div>
-  <script>
-    // Inisialisasi Cloudinary Upload Widget
-    document.getElementById('upload-widget').onclick = function() {
-      cloudinary.openUploadWidget(
-        {
-          cloudName: 'dn8aufq3b', 
-          uploadPreset: 'complaint_upload', // Sesuaikan dengan upload preset yang telah Anda buat di Cloudinary
-          sources: ['local', 'url', 'camera'], // Pilihan sumber upload
-          showAdvancedOptions: true,
-          cropping: true,
-          multiple: false,
-          maxFileSize: 5000000 // Maksimal ukuran file 5MB
-        },
-        function(error, result) {
-          if (error) {
-            console.log(error);
-            return;
-          }
-          // Simpan URL gambar ke input hidden
-          document.getElementById('foto-url').value = result[0].secure_url;
-        }
-      );
-    };
-  </script>
+    <script>
+        document.getElementById("complaint-form").addEventListener("submit", async function(event) {
+            event.preventDefault();  // Mencegah reload halaman
+
+            const fileInput = document.getElementById("file").files[0];
+            if (!fileInput) {
+                alert("Silakan pilih file untuk diunggah.");
+                return;
+            }
+
+            // Upload ke Cloudinary
+            const formData = new FormData();
+            formData.append("file", fileInput);
+            formData.append("upload_preset", "complaint_upload"); // Ganti dengan Upload Preset Cloudinary Anda
+
+            document.getElementById("status").innerText = "Mengunggah file...";
+
+            try {
+                const response = await fetch("https://api.cloudinary.com/v1_1/dn8aufq3b/upload", {
+                    method: "POST",
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error("Gagal mengunggah file.");
+                }
+
+                const data = await response.json();
+                const fileURL = data.secure_url;
+
+                document.getElementById("status").innerText = "File berhasil diunggah: " + fileURL;
+                alert("Keluhan berhasil dikirim! Bukti: " + fileURL);
+                
+                // Opsional: Kirim data ke Google Forms atau database eksternal
+                // Misalnya, fetch("https://api.example.com/complaints", { method: "POST", body: JSON.stringify({ name, email, issue, fileURL }) });
+
+            } catch (error) {
+                console.error(error);
+                document.getElementById("status").innerText = "Gagal mengunggah file.";
+            }
+        });
+    </script>
 </body>
 </html>
