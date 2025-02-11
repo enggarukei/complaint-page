@@ -1,106 +1,31 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pengajuan Keluhan</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f7fa;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      flex-direction: column;
-    }
-    .container {
-      background: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      max-width: 500px;
-      width: 100%;
-    }
-    h1 {
-      text-align: center;
-      font-size: 24px;
-      color: #333;
-      margin-bottom: 20px;
-    }
-    .form-group {
-      margin-bottom: 15px;
-    }
-    label {
-      font-size: 14px;
-      color: #333;
-    }
-    input, textarea, select {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 14px;
-    }
-    textarea {
-      resize: vertical;
-      height: 100px;
-    }
-    .btn-submit {
-      background-color: #4CAF50;
-      color: white;
-      padding: 12px 20px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      width: 100%;
-      font-size: 16px;
-    }
-    .btn-submit:hover {
-      background-color: #45a049;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Keluhan</title>
 </head>
 <body>
 
-  <div class="container">
-    <h1>Form Pengajuan Keluhan</h1>
-   <form id="complaint-form">
-      <div class="form-group">
-        <label for="nama">Nama</label>
-        <input type="text" id="nama" name="nama" required placeholder="Nama Anda">
-      </div>
-      
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required placeholder="Email Anda">
-      </div>
-      
-      <div class="form-group">
-        <label for="kategori">Kategori Keluhan</label>
-        <select id="kategori" name="kategori" required>
-          <option value="Jaringan">Jaringan</option>
-          <option value="Hardware">Hardware</option>
-          <option value="Software">Software</option>
-        </select>
-      </div>
-      
-      <div class="form-group">
-        <label for="pesan">Pesan Keluhan</label>
-        <textarea id="pesan" name="pesan" required placeholder="Deskripsikan keluhan Anda"></textarea>
-      </div>
-      
-      <div class="form-group">
-        <label for="foto">Upload Foto (opsional)</label>
-        <input type="file" id="foto" name="foto" accept="image/*">
-      </div>
-      
-      <button type="submit" class="btn-submit">Kirim Pengajuan</button>
+    <h1>Form Keluhan</h1>
+    <form id="complaint-form">
+        <label for="name">Nama:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="issue">Keluhan:</label>
+        <textarea id="issue" name="issue" required></textarea><br><br>
+
+        <label for="file">Upload Bukti (Gambar/PDF):</label>
+        <input type="file" id="file" name="file" accept="image/*,application/pdf" required><br><br>
+
+        <button type="submit">Kirim Keluhan</button>
     </form>
-  </div>
+
+    <p id="status"></p>
+
     <script>
         document.getElementById("complaint-form").addEventListener("submit", async function(event) {
             event.preventDefault();  // Mencegah reload halaman
@@ -111,7 +36,7 @@
                 return;
             }
 
-            // Upload ke Cloudinary
+            // 🔹 Upload ke Cloudinary
             const formData = new FormData();
             formData.append("file", fileInput);
             formData.append("upload_preset", "complaint_upload"); // Ganti dengan Upload Preset Cloudinary Anda
@@ -143,5 +68,6 @@
             }
         });
     </script>
+
 </body>
 </html>
