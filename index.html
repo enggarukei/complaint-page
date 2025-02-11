@@ -6,37 +6,52 @@
   <title>Form Pengajuan Keluhan</title>
   <script src="https://upload.widget.cloudinary.com/global/all.js" type="text/javascript"></script>
   <style>
-    /* Style CSS untuk tampilan */
+    /* CSS untuk desain minimalis dan responsif */
     body {
       font-family: Arial, sans-serif;
       background-color: #f4f7fa;
+      margin: 0;
+      padding: 0;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
+      flex-direction: column;
     }
     .container {
       background: #fff;
       padding: 20px;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      width: 100%;
       max-width: 500px;
+      width: 100%;
     }
     h1 {
       text-align: center;
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 20px;
     }
     .form-group {
       margin-bottom: 15px;
     }
-    input, textarea {
+    label {
+      font-size: 14px;
+      color: #333;
+    }
+    input, textarea, select {
       width: 100%;
       padding: 10px;
       margin-top: 5px;
+      border: 1px solid #ccc;
       border-radius: 4px;
       font-size: 14px;
     }
-    button {
+    textarea {
+      resize: vertical;
+      height: 100px;
+    }
+    .btn-submit {
       background-color: #4CAF50;
       color: white;
       padding: 12px 20px;
@@ -44,6 +59,10 @@
       border-radius: 4px;
       cursor: pointer;
       width: 100%;
+      font-size: 16px;
+    }
+    .btn-submit:hover {
+      background-color: #45a049;
     }
   </style>
 </head>
@@ -83,32 +102,33 @@
         <input type="hidden" id="foto-url" name="foto-url" />
       </div>
       
-      <button type="submit">Kirim Pengajuan</button>
+      <button type="submit" class="btn-submit">Kirim Pengajuan</button>
     </form>
   </div>
 
   <script>
+    // Inisialisasi Cloudinary Upload Widget
     document.getElementById('upload-widget').onclick = function() {
       cloudinary.openUploadWidget(
         {
           cloudName: 'YOUR_CLOUD_NAME', 
-          uploadPreset: 'web-app-upload', // Gunakan preset yang telah Anda buat di Cloudinary
-          sources: ['local', 'url', 'camera'],
+          uploadPreset: 'YOUR_UPLOAD_PRESET', // Sesuaikan dengan upload preset yang telah Anda buat di Cloudinary
+          sources: ['local', 'url', 'camera'], // Pilihan sumber upload
+          showAdvancedOptions: true,
           cropping: true,
           multiple: false,
-          maxFileSize: 5000000 // Maksimal file size 5MB
+          maxFileSize: 5000000 // Maksimal ukuran file 5MB
         },
         function(error, result) {
           if (error) {
             console.log(error);
             return;
           }
-          // Simpan URL foto yang di-upload di input hidden
+          // Simpan URL gambar ke input hidden
           document.getElementById('foto-url').value = result[0].secure_url;
         }
       );
     };
   </script>
-
 </body>
 </html>
