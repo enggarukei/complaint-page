@@ -30,9 +30,12 @@
             <label for="complaint">Keluhan:</label>
             <textarea id="complaint" name="complaint" rows="4" required></textarea>
             
+            <!-- 🔹 Atribut Kustomisasi Formspree -->
+            <input type="hidden" name="_next" value="https://enggarukei.github.io//terimakasih.html">  <!-- Redirect -->
+            <input type="hidden" name="_captcha" value="false">  <!-- Menonaktifkan reCAPTCHA -->
+            <input type="hidden" name="_subject" value="Keluhan Baru dari Website">  <!-- Subjek Email -->
+            
             <button type="submit">Kirim</button>
-            <input type="hidden" name="_next" value="https://username.github.io/terimakasih.html">
-            <input type="hidden" name="_captcha" value="false">
         </form>
     </div>
 </body>
