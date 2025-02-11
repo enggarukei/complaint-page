@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Form Upload File</title>
+  <title>Form Pengajuan</title>
   <style>
+    /* Styling untuk form */
     body {
       font-family: Arial, sans-serif;
       background-color: #f4f7fa;
@@ -12,7 +13,7 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
-      margin: 0;
+      flex-direction: column;
     }
     .container {
       background: #fff;
@@ -24,18 +25,20 @@
     }
     h1 {
       text-align: center;
+      font-size: 24px;
+      color: #333;
     }
     .form-group {
       margin-bottom: 15px;
     }
-    input, textarea {
+    input, textarea, select {
       width: 100%;
       padding: 10px;
       margin-top: 5px;
       border-radius: 4px;
       font-size: 14px;
     }
-    button {
+    .btn-submit {
       background-color: #4CAF50;
       color: white;
       padding: 12px 20px;
@@ -43,8 +46,9 @@
       border-radius: 4px;
       cursor: pointer;
       width: 100%;
+      font-size: 16px;
     }
-    button:hover {
+    .btn-submit:hover {
       background-color: #45a049;
     }
   </style>
@@ -52,15 +56,34 @@
 <body>
 
   <div class="container">
-    <h1>Upload File</h1>
-    <form id="upload-form" action="/api/upload" method="POST" enctype="multipart/form-data">
-      
+    <h1>Form Pengajuan</h1>
+    <form id="complain-form" action="/api/submit" method="POST" enctype="multipart/form-data">
       <div class="form-group">
-        <label for="file">Pilih File</label>
-        <input type="file" id="file" name="file" required />
+        <label for="nama">Nama</label>
+        <input type="text" id="nama" name="nama" required placeholder="Nama Anda">
       </div>
-      
-      <button type="submit">Kirim</button>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required placeholder="Email Anda">
+      </div>
+
+      <div class="form-group">
+        <label for="jabatan">Jabatan</label>
+        <input type="text" id="jabatan" name="jabatan" required placeholder="Jabatan Anda">
+      </div>
+
+      <div class="form-group">
+        <label for="lokasi">Lokasi</label>
+        <input type="text" id="lokasi" name="lokasi" required placeholder="Lokasi Anda">
+      </div>
+
+      <div class="form-group">
+        <label for="file">Upload File</label>
+        <input type="file" id="file" name="file" required>
+      </div>
+
+      <button type="submit" class="btn-submit">Kirim Pengajuan</button>
     </form>
   </div>
 
