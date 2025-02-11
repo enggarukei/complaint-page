@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Form Pengajuan</title>
+  <title>Form Pengajuan Keluhan</title>
+  <script src="https://upload.widget.cloudinary.com/global/all.js" type="text/javascript"></script>
   <style>
-    /* Styling untuk form */
+    /* Style CSS untuk tampilan */
     body {
       font-family: Arial, sans-serif;
       background-color: #f4f7fa;
@@ -13,7 +14,6 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
-      flex-direction: column;
     }
     .container {
       background: #fff;
@@ -25,20 +25,18 @@
     }
     h1 {
       text-align: center;
-      font-size: 24px;
-      color: #333;
     }
     .form-group {
       margin-bottom: 15px;
     }
-    input, textarea, select {
+    input, textarea {
       width: 100%;
       padding: 10px;
       margin-top: 5px;
       border-radius: 4px;
       font-size: 14px;
     }
-    .btn-submit {
+    button {
       background-color: #4CAF50;
       color: white;
       padding: 12px 20px;
@@ -46,46 +44,71 @@
       border-radius: 4px;
       cursor: pointer;
       width: 100%;
-      font-size: 16px;
-    }
-    .btn-submit:hover {
-      background-color: #45a049;
     }
   </style>
 </head>
 <body>
 
   <div class="container">
-    <h1>Form Pengajuan</h1>
-    <form id="complain-form" action="/api/submit" method="POST" enctype="multipart/form-data">
+    <h1>Form Pengajuan Keluhan</h1>
+    <form id="complain-form" action="YOUR_BACKEND_URL" method="POST" enctype="multipart/form-data">
+      
       <div class="form-group">
         <label for="nama">Nama</label>
         <input type="text" id="nama" name="nama" required placeholder="Nama Anda">
       </div>
-
+      
       <div class="form-group">
         <label for="email">Email</label>
         <input type="email" id="email" name="email" required placeholder="Email Anda">
       </div>
-
+      
       <div class="form-group">
-        <label for="jabatan">Jabatan</label>
-        <input type="text" id="jabatan" name="jabatan" required placeholder="Jabatan Anda">
+        <label for="kategori">Kategori Keluhan</label>
+        <select id="kategori" name="kategori" required>
+          <option value="Jaringan">Jaringan</option>
+          <option value="Hardware">Hardware</option>
+          <option value="Software">Software</option>
+        </select>
       </div>
-
+      
       <div class="form-group">
-        <label for="lokasi">Lokasi</label>
-        <input type="text" id="lokasi" name="lokasi" required placeholder="Lokasi Anda">
+        <label for="pesan">Pesan Keluhan</label>
+        <textarea id="pesan" name="pesan" required placeholder="Deskripsikan keluhan Anda"></textarea>
       </div>
-
+      
       <div class="form-group">
-        <label for="file">Upload File</label>
-        <input type="file" id="file" name="file" required>
+        <label for="foto">Upload Foto (opsional)</label>
+        <button type="button" id="upload-widget">Pilih Foto</button>
+        <input type="hidden" id="foto-url" name="foto-url" />
       </div>
-
-      <button type="submit" class="btn-submit">Kirim Pengajuan</button>
+      
+      <button type="submit">Kirim Pengajuan</button>
     </form>
   </div>
+
+  <script>
+    document.getElementById('upload-widget').onclick = function() {
+      cloudinary.openUploadWidget(
+        {
+          cloudName: 'YOUR_CLOUD_NAME', 
+          uploadPreset: 'web-app-upload', // Gunakan preset yang telah Anda buat di Cloudinary
+          sources: ['local', 'url', 'camera'],
+          cropping: true,
+          multiple: false,
+          maxFileSize: 5000000 // Maksimal file size 5MB
+        },
+        function(error, result) {
+          if (error) {
+            console.log(error);
+            return;
+          }
+          // Simpan URL foto yang di-upload di input hidden
+          document.getElementById('foto-url').value = result[0].secure_url;
+        }
+      );
+    };
+  </script>
 
 </body>
 </html>
